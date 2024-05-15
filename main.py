@@ -205,6 +205,7 @@ def serial_action(text: str):
             isAuto = False
             Robot.stop()
     elif text.startswith('Connecting to'):
+        Robot.stop()  # ESP32 is not connected
         red_led.high()
         time.sleep(.5)
         red_led.low()
@@ -224,6 +225,8 @@ def serial_action(text: str):
             red_led.low()
             time.sleep(0.1)
     elif 'Brownout' in text:
+        Robot.stop()
+        is_1st_pir = True
         for _ in range(3):
             red_led.high()
             time.sleep(0.05)
